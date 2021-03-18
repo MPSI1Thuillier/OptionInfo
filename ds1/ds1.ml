@@ -175,6 +175,26 @@ let rec somme_premiers n =
 
 let () = assert ((somme_premiers 10) = 17)
 
+(* 5.a. Autre manière de l'écrire *)
+let rec somme_premiers n =
+    match n with
+    | 0 -> 0
+    | n when estPremier n -> n + somme_premiers (n-1)
+    | _ -> somme_premiers (n-1)
+
+let () = assert ((somme_premiers 10) = 17)
+
+(* 5.a En récursivité terminale *)
+let somme_premiers n =
+    let rec somme_premiers_aux n a =
+        match n with
+        | 0 -> a
+        | n when estPremier n -> somme_premiers_aux (n-1) (a+n)
+        | _ -> somme_premiers_aux (n-1) a
+    in somme_premiers_aux n 0
+
+let () = assert ((somme_premiers 10) = 17)
+
 (* 5.b. *)
 let rec premier_suivant n = if estPremier (n+1) then (n+1) else premier_suivant (n+1)
 
