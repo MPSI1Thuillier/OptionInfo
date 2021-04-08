@@ -97,6 +97,15 @@ inf_lex_list [1] [2;0;1];;
 inf_lex_list [3] [2;0;1];;
 inf_lex_list [1] [1;0;1];;
 
+(* Version du prof *)
+let inf_lex (a,b) (c,d) = a < c || (a = c && b <= d);;
+let rec inf_lex_list l1 l2 =
+    match (l1,l2) with
+        | [],[] -> true
+        | [],_ -> failwith "Comparaison impossible"
+        | _ ,[] -> failwith "Comparaison impossible"
+        | (h1::t1), (h2::t2) -> h1 < h2 || (h1 = h2 && (inf_lex_list t1 t2));;
+
 (*
 * Exercice 6
 *)
@@ -112,3 +121,16 @@ let selection filtre list =
 let est_pair x = x mod 2 = 0;;
 
 selection est_pair [0;1;2;3;4;5;6;7;8;9;10];;
+
+(*
+* Exercice 7
+*)
+
+let rec intervalle_entier a b = 
+	match a, b with 
+	| a, b when a > b -> []
+	| a, b -> a :: intervalle_entier (a+1) b;;
+
+intervalle_entier 3 7;;
+intervalle_entier 4 4;;
+intervalle_entier 5 3;;
